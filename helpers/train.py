@@ -8,7 +8,7 @@ from datetime import datetime
 from torchvision.transforms import v2
 from torchvision.datasets import ImageFolder
 from torch.utils.data import DataLoader
-from config import WIDTH, HEIGTH
+from helpers.config import WIDTH, HEIGTH
 from model import CNN
 
 # Training hyperparameters

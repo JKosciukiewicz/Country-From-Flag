@@ -1,11 +1,10 @@
 import os
-import csv
 import torch
 from torchvision.transforms import v2
 from model import CNN
 import sys
 from PIL import Image
-from config import NUM_CLASSES, WIDTH, HEIGTH
+from helpers.config import NUM_CLASSES, WIDTH, HEIGTH
 
 device = torch.device("cuda" if torch.cuda.is_available() else ("mps" if torch.backends.mps.is_available() else "cpu"))
 

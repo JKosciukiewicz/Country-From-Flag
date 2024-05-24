@@ -2,7 +2,7 @@ import os
 import cv2
 import numpy as np
 import random
-from config import HEIGTH, WIDTH
+from helpers.config import HEIGTH, WIDTH
 
 # Function to perform augmentation, resize, and save images
 def augment_and_save(target_count=50, input_dir='./Flags', output_dir='./AugmentedFlags'):

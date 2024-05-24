@@ -1,8 +1,8 @@
 import os
 import csv
 
-from train import run_training
-from prepare_dataset import prepare_dataset
+from helpers.train import run_training
+from helpers.prepare_dataset import prepare_dataset
 
 def verify_datset():
     print("Checking dataset...")

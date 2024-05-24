@@ -1,6 +1,5 @@
-from config import HEIGTH, WIDTH
-from scrap_data import get_flags
-from augment import augment_and_save
+from helpers.scrap_data import get_flags
+from helpers.augment import augment_and_save
 import os
 import shutil
 from sklearn.model_selection import train_test_split
