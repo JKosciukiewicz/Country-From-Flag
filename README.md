@@ -26,7 +26,7 @@ Use to execute the script. Dataset will be created automatically if necessary an
     python run_training.py
 </li>
 <li>With model trained you can now use it to predict images.
-The file will run in a infinite loop, to guess the flag simply paste path of the file into command line. Run the following file for the inference pipeline.<br><br><b>The pipeline will always use the latest version of trained model !!!</b><br><br>
+The file will run in a infinite loop, to guess the flag simply paste path of the file into command line and the model will return the name of the country it belongs to. Run the following file for the inference pipeline.<br><br><b>The pipeline will always use the latest version of trained model !!!</b><br><br>
 
     python guess_country.py
 
