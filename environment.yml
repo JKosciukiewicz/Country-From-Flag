@@ -1,0 +1,16 @@
+name: country_from_flag
+channels:
+  - defaults
+  - conda-forge
+  - pytorch
+  - nvidia
+dependencies:
+  - python=3.11
+  - requests
+  - beautifulsoup4
+  - pytorch::pytorch
+  - torchvision
+  - matplotlib
+  - wandb
+  - opencv
+  - scikit-learn
