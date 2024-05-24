@@ -30,4 +30,8 @@ The file will run in a infinite loop, to guess the flag simply paste path of the
     
     python guess_country.py
 </li>
+</ol>
+Alternatively the whole process can be done by running the following command
+
+    bash run_app.sh
 
