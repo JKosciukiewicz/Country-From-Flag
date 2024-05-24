@@ -9,8 +9,7 @@ dependencies:
   - requests
   - beautifulsoup4
   - pytorch::pytorch
-  - torchvision
+  - torchvision=0.18
   - matplotlib
-  - wandb
   - opencv
   - scikit-learn
