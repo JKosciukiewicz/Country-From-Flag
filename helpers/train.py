@@ -45,19 +45,19 @@ def run_training():
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=LR, weight_decay=1e-5)
 
-    wandb.init(
-        # set the wandb project where this run will be logged
-        project="Ardigen",
-        # track hyperparameters and run metadata
-        name = f"run_{now}",
-        config = {
-            "learning_rate": LR,
-            "architecture": "CNN",
-            "dataset": "Flags",
-            "epochs": NUM_EPOCHS,
-            "batch_size": BATCH_SIZE
-        }
-    )
+    # wandb.init(
+    #     # set the wandb project where this run will be logged
+    #     project="Ardigen",
+    #     # track hyperparameters and run metadata
+    #     name = f"run_{now}",
+    #     config = {
+    #         "learning_rate": LR,
+    #         "architecture": "CNN",
+    #         "dataset": "Flags",
+    #         "epochs": NUM_EPOCHS,
+    #         "batch_size": BATCH_SIZE
+    #     }
+    # )
 
     # Training loop
     for epoch in range(NUM_EPOCHS):
@@ -73,7 +73,7 @@ def run_training():
             optimizer.step()
 
             if batch_idx % 100 == 0:
-                wandb.log({"loss": loss.item()})
+                # wandb.log({"loss": loss.item()})
                 print(f"Epoch {epoch+1}/{NUM_EPOCHS}, Batch:{batch_idx} loss: {loss.item()}")
 
     # Print model's state_dict
@@ -114,7 +114,7 @@ def run_training():
             correct += (predictions == targets).sum()
             total += predictions.size(0)
             accuracy = correct / total
-            wandb.log({"accuracy": accuracy})
+            # wandb.log({"accuracy": accuracy})
         accuracy = correct / total
         print(f"Accuracy: {accuracy}")
 
