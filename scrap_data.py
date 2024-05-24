@@ -10,7 +10,6 @@ import os
 # Scrapeper is only onfigured for specific wikipedia page
 
 URL ='https://en.wikipedia.org/wiki/Gallery_of_sovereign_state_flags'
-IMAGE_DIR='./Flags'
 DRY_RUN=False # DRY_RUN=TRUE won't download data, only create folders and csv files
 
 def parse_img_url(scrcset: str):
@@ -42,10 +41,10 @@ def scrap_images():
             image_links[alt]=urls[-1]
     return image_links
 
-def download_images(image_links: dict):
+def download_images(image_links: dict, output_dir: str):
     # Create target directory if necessary
-    if not os.path.exists(IMAGE_DIR):
-        os.makedirs(IMAGE_DIR)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
     # Create csv file
     # csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
@@ -56,15 +55,15 @@ def download_images(image_links: dict):
         # Add image to CSV (country, ./Flags/Country/001.jpg)
         # csv_writer.writerow([country, IMAGE_DIR+'/'+country+'/001.jpg'])
         # Create directory if necessary
-        if not os.path.exists(IMAGE_DIR+'/'+country):
-            os.makedirs(IMAGE_DIR+'/'+country)
+        if not os.path.exists(output_dir+'/'+country):
+            os.makedirs(output_dir+'/'+country)
         else:
-            shutil.rmtree(IMAGE_DIR+'/'+country)
-            os.makedirs(IMAGE_DIR+'/'+country)
+            shutil.rmtree(output_dir+'/'+country)
+            os.makedirs(output_dir+'/'+country)
         if not DRY_RUN:
             img_download = requests.get("https://" + flag_url, stream = True)
             if img_download.status_code == 200:
-                with open(IMAGE_DIR+'/'+country+'/001.jpg', 'wb') as f:
+                with open(output_dir+'/'+country+'/001.jpg', 'wb') as f:
                     img_download.raw.decode_content = True
                     shutil.copyfileobj(img_download.raw, f)
             else:
@@ -72,8 +71,6 @@ def download_images(image_links: dict):
 
 
     # Verify if all images are saved (compare directory vs CSV)
-def get_flags():
+def get_flags(output_dir):
     image_links = scrap_images()
-    download_images(image_links)
-
-get_flags()
+    download_images(image_links, output_dir)
