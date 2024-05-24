@@ -5,8 +5,6 @@
 
 ## Installation
 <ol>
-<li>Clone the repository
-</li>
 <li>Create conda environment with <br><br>
 
 
