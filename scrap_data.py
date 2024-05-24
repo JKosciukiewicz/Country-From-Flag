@@ -4,7 +4,7 @@ import csv
 from bs4 import BeautifulSoup
 import shutil
 import os
-
+import time
 
 # This file contains methods used to gathering data to prepare the dataset
 # Scrapeper is only onfigured for specific wikipedia page
@@ -45,15 +45,11 @@ def download_images(image_links: dict, output_dir: str):
     # Create target directory if necessary
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-    # Create csv file
-    # csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
     # Download images
+    missing_images = {}
     for country, flag_url in image_links.items():
         country=country.replace(" ","_")
-        print(country, flag_url)
-        # Add image to CSV (country, ./Flags/Country/001.jpg)
-        # csv_writer.writerow([country, IMAGE_DIR+'/'+country+'/001.jpg'])
         # Create directory if necessary
         if not os.path.exists(output_dir+'/'+country):
             os.makedirs(output_dir+'/'+country)
@@ -67,10 +63,28 @@ def download_images(image_links: dict, output_dir: str):
                     img_download.raw.decode_content = True
                     shutil.copyfileobj(img_download.raw, f)
             else:
-                print('Failed to download:', country, flag_url)
+                print(f"Error downloading image: {country}")
+                missing_images[country]=flag_url
 
+        # handle missing images
+        if len(missing_images)>0:
+            print("Retrying downloading missing images:")
+            for country, url in missing_images.items():
+                max_retries=3
+                for retry in range(max_retries):
+                    img_download = requests.get("https://" + url, stream = True)
+                    if img_download.status_code == 200:
+                        with open(output_dir+'/'+country+'/001.jpg', 'wb') as f:
+                            img_download.raw.decode_content = True
+                            shutil.copyfileobj(img_download.raw, f)
+                            break
+                    else:
+                        # wait 1 second before retrying
+                        time.sleep(1)
+                        if retry == max_retries - 1:
+                            print(f"Couldn't download image for: {country}, try adding it manually to the dataset from this URL: {url}")
+                            break
 
-    # Verify if all images are saved (compare directory vs CSV)
 def get_flags(output_dir):
     image_links = scrap_images()
     download_images(image_links, output_dir)
