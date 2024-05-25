@@ -47,7 +47,7 @@ def run_training():
 
     # wandb.init(
     #     # set the wandb project where this run will be logged
-    #     project="Ardigen",
+    #     project="flags-classification",
     #     # track hyperparameters and run metadata
     #     name = f"run_{now}",
     #     config = {
